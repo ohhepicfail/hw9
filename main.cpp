@@ -16,13 +16,7 @@ int main () {
     #endif
 
     FirstNPrimes<i> fnp;
-    auto activate = fnp.dummy;  // This is necessary to activate the calculations
-    auto primes = fnp.array;
-    for (unsigned j = 1; j < i; j++) {
-        auto func_result = nth_prime_f (j);
-        std::cout << j + 1 << "th/nd/rd prime number is\t" << primes[j] << '\t' << func_result << std::endl;
-        assert (primes[j] == func_result);
-    }
+    assert (fnp.check (nth_prime_f));
 
     return 0;
 }
@@ -41,10 +35,10 @@ bool is_prime_f (unsigned x) {
 unsigned nth_prime_f (unsigned x) {
     if (x == 0)
         return 0;
-    for (unsigned i = 2; x > 0; ++i) {
+    unsigned i;
+    for (i = 2; x > 0; ++i) 
         if (is_prime_f (i))
             --x;
-        if (x == 0)
-            return i;
-    }
+
+    return i - 1;
 }

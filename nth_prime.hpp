@@ -60,21 +60,25 @@ struct NthPrime<0, I> {
 
 
 template<unsigned N, unsigned I = N - 1>
-struct FirstNPrimes : FirstNPrimes<N, I - 1> {
-    static const unsigned dummy;
+struct FirstNPrimes {
+    static const unsigned value = NthPrime<I>::value;
+	FirstNPrimes<N, I - 1> prev;
+	template<typename Func>
+	bool check (Func func) {
+		if (value != func (I))
+			return false;
+		return prev.check (func);
+	}
 };
 
 template<unsigned N>
 struct FirstNPrimes<N, 0> {
-    static const unsigned dummy;
-    static unsigned array[N];
+    static const unsigned value = NthPrime<0>::value;
+	template<typename Func>
+	bool check (Func func) {
+		return true;
+	}
 };
-
-template<unsigned N, unsigned I>
-const unsigned FirstNPrimes<N, I>::dummy = FirstNPrimes<N, 0>::array[I] = NthPrime<I>::value + 0 * FirstNPrimes<N, I - 1>::dummy;
-
-template<unsigned N>
-unsigned FirstNPrimes<N, 0>::array[N];
 
 
 #endif
