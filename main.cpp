@@ -10,7 +10,7 @@ unsigned nth_prime_f (unsigned x);
 
 
 int main () {
-    const unsigned i = 100;
+    const unsigned i = 33;
     
     #if 0
     std::cout << "is " << i << " a prime number? " << (IsPrime<i>::value ? "Yes" : "No") << std::endl;
@@ -23,7 +23,8 @@ int main () {
     #endif
 
     #ifdef TEST_BERNOULLI
-    std::cout  << Sum1DivP<i>::value::num << '/' << Sum1DivP<i>::value::den << std::endl;
+
+    CheckAll<i>::print ();
     #endif
 
     return 0;
